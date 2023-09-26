@@ -7,8 +7,85 @@
 
 ![image](https://user-images.githubusercontent.com/31002981/217465357-d0737b23-55ec-47d3-b12c-ee8973a04291.png)
 
+## macOS使用方法：
 
-## 使用方法：     
+### 1 使用EditThisCookie导出cookie
+
+Chrome插件安装链接
+https://chrome.google.com/webstore/detail/edit-this-cookie/fngmhnnpilhplaeedifhccceomclgfbg/reviews
+
+Edge浏览器可以搜同名插件：EditThisCookie
+
+### 2 获取token
+
+进入微信公众号后台网页，打开Chrome浏览器控制台，勾选网络（Network），勾选Fetch/XHR，随便点击一个请求，点击载荷（Payload），里面就有`token: 829****43`参数，这个数字就是下一步需要的。
+
+### 3 根目录新建cookie.json文件，内容示例如下：
+
+```
+[
+  {
+    "COOKIES": [
+      {
+        "domain": ".qq.com",
+        "expirationDate": 1727226754,
+        "hostOnly": false,
+        "httpOnly": false,
+        "name": "_clck",
+        "path": "/",
+        "sameSite": "unspecified",
+        "secure": false,
+        "session": false,
+        "storeId": "0",
+        "value": "12334441212|1|ffc|0",
+        "id": 1
+      },
+      // 这里省略若干行
+      {
+        "domain": "mp.weixin.qq.com",
+        "expirationDate": 1730207739.668822,
+        "hostOnly": true,
+        "httpOnly": true,
+        "name": "xid",
+        "path": "/",
+        "sameSite": "unspecified",
+        "secure": true,
+        "session": false,
+        "storeId": "0",
+        "value": "8f43a3ae8f1e8abcdedd62645ec461c1",
+        "id": 18
+      }
+    ],
+    "TOKEN": "829****43"
+  }
+]
+```
+
+COOKIES冒号后面的就是EditThisCookie插件导出的cookie
+
+### 4 安装依赖并运行项目
+
+```bash
+# 创建虚拟环境（仅首次）
+python3 -m venv venv
+# 进入虚拟环境（运行python3 main.py前执行一次即可）
+source venv/bin/activate
+# 安装依赖（仅首次）
+pip install -r requirements.txt
+# 运行项目
+python3 main.py
+```
+
+如果出现了这个错误：Tkinter is required for pymsgbox 就使用homebrew安装python-tk：
+
+```
+brew install python-tk
+```
+
+
+
+## Windows使用方法：     
+
 1、下载并解压[**Chrome.rar**](https://sxf1024.lanzouo.com/iJ2Rp0mwy50j)；    
 2、运行**main.exe**；    
 3、填入信息，点击“**启动**”即可。    

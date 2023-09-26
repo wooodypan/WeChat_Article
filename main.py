@@ -1,14 +1,14 @@
 ﻿# -*- coding: utf-8 -*-
 import WeChat
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import Qt
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtGui import QPixmap
+from PyQt6.QtCore import Qt
 import sys
 import os
 import re
 from time import sleep, localtime, time, strftime
 import undetected_chromedriver as uc
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 from bs4 import BeautifulSoup
 import requests
 import json
@@ -25,7 +25,7 @@ import threading
 import inspect
 import ctypes
 import random
-from goto import with_goto
+# from goto import with_goto
 import configparser
 import pyautogui
 # import pdfkit
@@ -135,11 +135,11 @@ class MyMainWindow(WeChat.Ui_MainWindow):
             image_url = "http://xfxuezhang.cn/web/share/donate/yf.png"
             response = requests.get(image_url)
             if response.status_code == 200:
-                self.label_yf.setAlignment(Qt.AlignCenter)
+                self.label_yf.setAlignment(Qt.AlignmentFlag.AlignCenter)
                 pixmap = QPixmap()
                 pixmap.loadFromData(response.content)
                 # 缩放图片以适应标签的大小
-                scaled_pixmap = pixmap.scaled(self.label_yf.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                scaled_pixmap = pixmap.scaled(self.label_yf.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
                 self.label_yf.setPixmap(scaled_pixmap)
                 print('image download ok')
             else:
@@ -506,7 +506,7 @@ class MyMainWindow(WeChat.Ui_MainWindow):
                 i = i + self.pagenum
             self.Label_Debug("第[%d/%d]页  url:%s, article:%s" % (i + 1, Total_Page, self.linkbuf_cnt, self.download_cnt))
             print("第[%d/%d]页  url:%s, article:%s" % (i + 1, Total_Page, self.linkbuf_cnt, self.download_cnt))
-            self.label_total_Page.setText("第[%d/%d]页  linkbuf_cnt:%s, download_cnt:%s" % (i + 1, Total_Page, self.linkbuf_cnt, self.download_cnt))
+            # self.label_total_Page.setText("第[%d/%d]页  linkbuf_cnt:%s, download_cnt:%s" % (i + 1, Total_Page, self.linkbuf_cnt, self.download_cnt))
             begin = i * 5
             url = r'https://mp.weixin.qq.com/cgi-bin/appmsg?token={0}&lang=zh_CN&f=json&ajax=1&random={1}&action=list_ex&begin={2}&count=5&query=&fakeid={3}&type=9'.format(
                 token,  random.uniform(0, 1), begin, fakeid)
@@ -896,7 +896,7 @@ def main():
     ui = MyMainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == "__main__":
